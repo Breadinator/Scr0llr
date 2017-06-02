@@ -51,10 +51,10 @@ with open("log.txt", "r") as f2:
 log = input("Do you wish to log identified users? (y/n)\n>")
 if log == 'y':
     log = 'true'
-    print('Logging mode enabled\nLogging is in development, it will log the same user multiple times')
+    print('Logging mode enabled\n')
 elif log == 'yes':
     log = 'true'
-    print('Logging mode enabled\nLogging is in development, it will log the same user multiple times')
+    print('Logging mode enabled\n')
 else:
     log = 'false'
     print('Logging mode disabled\n')
