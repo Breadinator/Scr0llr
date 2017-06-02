@@ -11,6 +11,8 @@ reddit = praw.Reddit('bot1')
 
 watchlist_words = []
 watchlist_subreddits = []
+logged = []
+
 
 #Check if files exist
 if not path.exists("words.txt"):
@@ -37,6 +39,9 @@ with open("words.txt", "r") as f0:
 with open("subreddits.txt", "r") as f1:
     watchlist_subreddits = [line.strip() for line in f1]
     f1.close
+with open("log.txt", "r") as f2:
+    logged = [line.strip() for line in f2]
+    f2.close
 
 ### UNCOMMENT FOLLOWING TWO LINES FOR TESTING PURPOSES(to see if your flag words and subreddit list has been successful) ###
 #print(watchlist_words)
@@ -70,10 +75,19 @@ while 1:
                     
                     if log == 'true':
                         with open("log.txt", "a+") as f2:
-                            logged_already = [line.strip() for line in f2]
-                            if not str(submission.author) in logged_already:
-                                f2.write(str(submission.author) + "\n")
-                                f2.close
+                            logno = 0
+                            for person in logged:
+                                if person == str(submission.author):
+                                    logno += 1
+                            if logno == 0:
+                                logged = [line.strip() for line in f2]
+                                if str(submission.author) not in logged:
+                                    f2.write(str(submission.author) + "\n")
+                                    f2.close
+                                    with open("log.txt", "r") as f2:
+                                        logged = [line.strip() for line in f2]
+                                        #print(logged) #Testing purposes
+                                        f2.close
                             
                     hits += 1
                     break
