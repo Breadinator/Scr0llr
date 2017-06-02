@@ -25,7 +25,7 @@ if not path.exists("subreddits.txt"):
         wait = input('Press enter to exit.')
         f1.close
         quit()
-if not path.exists("output.txt"):
+if not path.exists("log.txt"):
     with open("log.txt", "w+") as f2:
         print("log.txt file created.")
         f2.close
