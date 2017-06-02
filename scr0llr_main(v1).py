@@ -5,7 +5,7 @@ from time import sleep
 #Bot created by the Breadinator in python 3.4.4
 #To setup, setup praw and configure praw.ini to have your bot, bot1 in praw.ini, actually exist.
 #Then create files called 'words.txt' and 'subreddits.txt' in the directory of this program or let the program generate the itself.
-#Add what flag words you want to pick up in 
+#Add what flag words you want to pick up in words.txt and what subreddits you wish to search in subreddits.txt
 
 reddit = praw.Reddit('bot1')
 
