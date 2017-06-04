@@ -62,37 +62,41 @@ else:
 #Main block
 while 1:
     for subreddit in watchlist_subreddits:
+        hits = 0
         print('Scanning ', subreddit)
         subreddit = reddit.subreddit(subreddit)
         for submission in subreddit.new(limit=5):
-            hits = 0
             for word in watchlist_words:
-                if word in submission.title or submission.selftext:
-                    print("\nTitle: ", str(submission.title))
-                    #print("Text: ", submission.selftext) #add for additional information
-                    #print("Score: ", submission.score) #add for additional information
-                    print("User: ", str(submission.author))
-                    
-                    if log == 'true':
-                        with open("log.txt", "a+") as f2:
-                            logno = 0
-                            for person in logged:
-                                if person == str(submission.author):
-                                    logno += 1
-                            if logno == 0:
-                                logged = [line.strip() for line in f2]
-                                if str(submission.author) not in logged:
-                                    f2.write(str(submission.author) + "\n")
-                                    f2.close
-                                    with open("log.txt", "r") as f2:
-                                        logged = [line.strip() for line in f2]
-                                        #print(logged) #Testing purposes
+                with open("log.txt", "r") as f2:
+                    logged = [line.strip() for line in f2]
+                    #print(logged) #Testing purposes
+                    f2.close
+                try:
+                    if word in submission.title or submission.selftext:
+                        print("\nTitle: ", str(submission.title))
+                        #print("Text: ", submission.selftext) #add for additional information
+                        #print("Score: ", submission.score) #add for additional information
+                        print("User: ", str(submission.author))
+                        
+                        if log == 'true':
+                            with open("log.txt", "a+") as f2:
+                                logno = 0
+                                for person in logged:
+                                    if person == str(submission.author):
+                                        logno += 1
+                                if logno == 0:
+                                    logged = [line.strip() for line in f2]
+                                    if str(submission.author) not in logged:
+                                        f2.write(str(submission.author) + "\n")
                                         f2.close
-                            
-                    hits += 1
-                    break
-                #else: #Uncomment these lines for testing
-                    #print("Safe result.\n")
+                                
+                        hits += 1
+                        break
+                    #else: #Uncomment these lines for testing
+                        #print("Safe result.\n")
+                except UnicodeEncodeError:
+                    print('(A UnicodeEncodeError error occurred)')
+                    pass
         if hits == 0:
             print("No results found.")
         print('\n------------------------------\n')
