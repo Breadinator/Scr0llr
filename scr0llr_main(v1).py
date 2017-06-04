@@ -1,6 +1,6 @@
 import praw
 import os.path as path
-from time import sleep
+from time import sleep, strftime
 
 #Bot created by the Breadinator in python 3.4.4
 #To setup, setup praw and configure praw.ini to have your bot, bot1 in praw.ini, actually exist.
@@ -51,19 +51,20 @@ with open("log.txt", "r") as f2:
 log = input("Do you wish to log identified users? (y/n)\n>")
 if log == 'y':
     log = 'true'
-    print('Logging mode enabled\n')
+    print('Logging mode enabled')
 elif log == 'yes':
     log = 'true'
-    print('Logging mode enabled\n')
+    print('Logging mode enabled')
 else:
     log = 'false'
-    print('Logging mode disabled\n')
+    print('Logging mode disabled')
+print('\n------------------------------\n')
 
 #Main block
 while 1:
     for subreddit in watchlist_subreddits:
         hits = 0
-        print('Scanning ', subreddit)
+        print('Scanning ' + str(subreddit).upper() + ' at ' + strftime("%X"))
         subreddit = reddit.subreddit(subreddit)
         for submission in subreddit.new(limit=5):
             for word in watchlist_words:
